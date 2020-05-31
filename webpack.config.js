@@ -24,6 +24,16 @@ module.exports = {
         },
       },
       {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          'file-loader',
+          ],
+      },
+      {
         test: /\.scss$/,
         use: ['style-loader', 'css-loader', {
             loader: 'sass-loader',
@@ -39,6 +49,7 @@ module.exports = {
       '@': path.resolve(__dirname, 'src'),
       Components: path.resolve(__dirname, 'src/components'),
       Utils: path.resolve(__dirname, 'src/utils'),
+      Scripts: path.resolve(__dirname, 'scripts'),
     },
     plugins: [
       new DirectoryNamedWebpackPlugin(),

@@ -1,3 +1,7 @@
+@import "~normalize.css";
+@import "~@blueprintjs/core/lib/css/blueprint.css";
+@import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
+
 h2, body, h4 {
   margin: 0;
   padding: 0;
@@ -9,6 +13,22 @@ h2, body, h4 {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  h2 {
+    display: flex;
+    align-items: center;
+    .config, .folder-update {
+      display: inline-flex;
+      margin-left: 10px;
+      border: 1px solid #97cc6f;
+      padding: 4px;
+      border-radius: 15px;
+      &:hover {
+        cursor: pointer;
+        color: #dc764f;
+      }
+    }
+  }
 
   .folder-widget {
     display: flex;
@@ -23,10 +43,23 @@ h2, body, h4 {
     font-size: .9em;
     color: lightsalmon;
   }
+
+  .folder-chooser {
+    margin-right: 20px;
+    width: 240px;
+  }
 }
 
+.bp3-menu-item.seen {
+  // background: lightblue;
+  background: rgba(138, 186, 192, 0.5);
+  &:hover {
+    background: rgba(138, 186, 192, 0.8); 
+  }
+} 
+
 main {
-  padding: 1em 2em;
+  padding: 1em 3em;
 }
 
 .file-list {
@@ -34,17 +67,41 @@ main {
     list-style: none;
     margin-bottom: 2px;
     cursor: pointer;
-
-    &:hover {
-      color: lightseagreen;
-    }
+  }
+  // .seen-folder .bp3-icon-folder-close {
+  //   color: #5c7080;
+  // }
+  .unseen-folder > .bp3-tree-node-content > .bp3-icon-folder-close {
+    color: lightcoral;
   }
 }
 
 .image-content {
+  // width: 1100px;
+
   h4 {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-bottom: 5px;
+
+    .rest-info {
+      display: flex;
+      align-items: center;
+      .jump-page {
+        width: 60px;
+        margin: 0 0 0 10px;
+      }
+    }
+  }
+}
+.full-mode .image-container {
+  height: auto;
+}
+.image-container {
+  text-align: center;
+  height: 100vh;
+
+  img {
+    height: 100%;
   }
 }

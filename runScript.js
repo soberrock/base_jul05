@@ -1,4 +1,5 @@
 const { spawn } = require('child_process');
+const path = require('path')
 
 function getFolderdata(folderPath) {
   return new Promise((resolve) => {
@@ -8,16 +9,14 @@ function getFolderdata(folderPath) {
 
     ls.stdout.on('data', (data) => {
       const stringifiedData = '' + data // eslint-disable-line prefer-template
-      resolve(stringifiedData.split(/[\r\n]+/))
+      const contents = stringifiedData.split(/[\r\n]+/)
+      const pictures = contents.filter((item) => path.extname(item) === '.jpg')
+      resolve(pictures)
     })
 
     ls.stderr.on('data', (data) => {
       console.error(`stderr: ${data}`);
     })
-
-    // ls.on('close', (code) => {
-    //   console.log(`child process exited with code ${code}`);
-    // })
   })
 }
 

@@ -5,6 +5,7 @@ const fs = require('fs')
 const path = require('path')
 const config = require('./webpack.config.js')
 const getFolderdata = require('./runScript')
+const mapDir = require('./scripts/map')
 
 const app = express()
 const compiler = webpack(config)
@@ -25,16 +26,23 @@ app.use(webpackDevMiddleware(compiler, {
 app.use(require('webpack-hot-middleware')(compiler))
 
 app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
-app.get('/folder-info', async (req, res) => {
-  const { folderPath } = req.query
-  currentFolder = decodeURIComponent(folderPath)
-  const folderData = await getFolderdata(currentFolder)
+app.post('/update-folder', (req, res) => {
+  const { folderpath } = req.body
+  mapDir()
+  res.sendStatus(200)
+})
+
+app.post('/folder-info', async (req, res) => {
+  const { folderPath } = req.body
+  currentFolder = folderPath
+  // currentFolder = decodeURIComponent(folderPath)
+  const folderData = await getFolderdata(folderPath)
   res.json({ folderData })
 })
 
 app.get('/image/:filename', (req, res) => {
-  currentFolder = '/Volumes/WDrive/lech/Asian_Uncen/JapanHDV SiteRip 21.01.2016 - 30.04.2016/Screens'
   const fileName = req.params.filename
   const mimeType = 'image/jpeg'
   const file = path.join(currentFolder, fileName)
